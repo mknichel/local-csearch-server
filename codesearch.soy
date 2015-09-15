@@ -1,0 +1,36 @@
+{namespace csearch}
+
+/** */
+{template .initialPage}
+  {@param? query: string}
+  {@param? results: list<?>}
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Local Code Search</title>
+    </head>
+    <body>
+      <form action="/" method="GET">
+        <input name="q" type="text" size=50 {if $query}value="{$query}"{/if}>
+        <input type="submit" value="Search">
+      </form>
+
+      {if $query and $results}
+        <div>Query: {$query}</div>
+        <div>Results:
+          <pre>
+          {foreach $result in $results}
+            <div>
+              <span style="color: green">{$result.filename}</span>
+              <span style="color: steelblue">{$result.snippet}</span>
+            </div>
+          {ifempty}
+            No results!
+          {/foreach}
+          </pre>
+        </div>
+      {/if}
+    </body>
+  </html>
+{/template}
